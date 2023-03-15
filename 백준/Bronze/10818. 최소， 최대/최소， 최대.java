@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -18,9 +17,20 @@ public class Main {
 		for(int i = 0;i<N;i++) {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
+		
+		int min = arr[0];
+		int max = arr[0];
+		
+		for(int i =1; i<N;i++) {
+			if(min>arr[i]) {
+				min = arr[i];
+			}
+			if(max<arr[i]) {
+				max = arr[i];
+			}
+		}
 		br.close();
-		Arrays.sort(arr);
-		System.out.println(arr[0]+" "+arr[arr.length-1]);
+		System.out.println(min +" "+max);
 	}
 
 }
