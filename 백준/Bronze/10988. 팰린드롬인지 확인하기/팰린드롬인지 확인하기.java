@@ -7,23 +7,18 @@ public class Main {
 
 		//문자열 입력 받기
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String str = br.readLine();
+		String s= br.readLine();
+		StringBuilder sb = new StringBuilder(s);
 		br.close();
 
-		//팰린드롬 확인 변수
-		int ans = 1;
-		
-		//반복문으로 확인
-		for(int i =0;i<str.length()-1;i++) {
-			char c = str.charAt(i);
-			
-			if(c!= str.charAt(str.length()-i-1)) {
-				ans=0;
-				break;
-			}
+		if(s.equals(sb.reverse().toString())) {
+			System.out.println(1);
+		}else {
+			System.out.println(0);
 		}
-		System.out.println(ans);
 
+		
+		
 	}
 
 }
