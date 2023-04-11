@@ -1,12 +1,9 @@
 class Solution {
     public String solution(String my_string) {
-        //String[] arr = arr[my_string.length()-1];
-        String answer = "";
+        StringBuffer sb = new StringBuffer();
+        sb.append(my_string);
+        String answer = sb.reverse().toString();
         
-        for(int i = my_string.length()-1;i>=0;i--){
-            answer = answer+my_string.charAt(i);
-            
-        }
         return answer;
     }
 }
