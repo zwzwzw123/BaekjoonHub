@@ -3,65 +3,38 @@ class Solution {
         int openStart = convertTime(op_start);
         int openEnd = convertTime(op_end);
         int present = convertTime(pos) ;
-        if(openStart <= present && present <= openEnd){
-            present = openEnd;
-        }
+        int video = convertTime(video_len);
         
-        for(int i = 0; i<commands.length; i++){ 
-            present = commands[i].equals("prev") ? prev(present, openStart, openEnd) : next(video_len,present, openStart, openEnd);
-                        if (openStart <= present && present <= openEnd) {
-                present = openEnd;
-            }
+        present = skipOpening(present,openStart,openEnd);  
+        for(int i = 0; i<commands.length; i++) {
+            present = commands[i].equals("prev") ? prev(present) : next(video, present);
+            present = skipOpening(present,openStart,openEnd);
         }
         return convertTime(present);
 
     }
 
-    public int prev(int present,int openStart,int openEnd){
-        present-=10;
-        if(present <=0){
-            return 0;
-        } 
-        // else if(openStart <= present && present <= openEnd) {
-        //     return openEnd;
-        // } 
-        else {
-            return present;
-        }
+    public int prev(int present){
+        return Math.max(0, present-10);
+    }
+    public int next(int video, int present){
+        return Math.min(video, present +10);
 
     }
-    public int next(String video_len, int present,int openStart,int openEnd){
-        present+=10;
-        int video = convertTime(video_len);
-        if(present >= video){
-            return video;
-        } 
-        // else if(openStart <= present && present <= openEnd) {
-        //     return openEnd;
-        // }
-        else {
-            return present;        
-        }
-    }
     public int convertTime(String value){
-         int minute = Integer.parseInt(value.split(":")[0]);
-        int second = Integer.parseInt(value.split(":")[1]);
-        return minute*60 + second ;
+        String[] part = value.split(":");
+        return Integer.parseInt(part[0])*60 +Integer.parseInt(part[1]);
     }
 
     public String convertTime(int value){
         int minute = value / 60;
         int second = value % 60;
-
-        String strMinute = String.valueOf(minute);
-        String strSecond = String.valueOf(second);
-
-        if(minute < 10){
-            strMinute = "0" + strMinute;
+        return String.format("%02d:%02d", minute,second);
+    }
+    public static int skipOpening(int present, int openStart, int openEnd){
+        if(openStart <= present && present <= openEnd){
+            present = openEnd;
         }
-        if(second < 10){
-            strSecond = "0" +strSecond;
-        }
-        return strMinute+":"+strSecond;
+        return present;
     }
 }
